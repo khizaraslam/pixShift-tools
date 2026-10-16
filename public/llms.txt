@@ -1,0 +1,30 @@
+# PixShift
+
+> PixShift is a free set of browser-based image tools: compress, resize and convert images. All processing happens locally in the user's browser, so images are never uploaded. No signup, watermark or usage limit.
+
+Replace https://pixshift.example with your real domain before deploying.
+
+## Tools
+
+- [Image Compressor](https://pixshift.example/image-compressor): Reduce the file size of JPG, PNG and WebP images with an adjustable quality slider.
+- [Image Resizer](https://pixshift.example/image-resizer): Resize images by exact pixels or percentage, with aspect ratio lock and batch support.
+- [JPG Compressor](https://pixshift.example/jpg-compressor): Compress JPG/JPEG photos to a smaller size.
+- [PNG Compressor](https://pixshift.example/png-compressor): Shrink PNG files with colour quantization while keeping transparency.
+- [WebP Converter](https://pixshift.example/webp-converter): Convert JPG, PNG and other formats to WebP.
+- [JPG to PNG](https://pixshift.example/jpg-to-png): Convert JPG/JPEG images to PNG.
+- [PNG to JPG](https://pixshift.example/png-to-jpg): Convert PNG images to JPG; transparent areas become white.
+- [Aspect Ratio Calculator](https://pixshift.example/aspect-ratio-calculator): Find the simplified ratio of any width and height, and compute matching dimensions.
+- [Instagram Image Resizer](https://pixshift.example/instagram-image-resizer): Resize images to Instagram post, portrait, story, reel and profile sizes.
+- [LinkedIn Image Resizer](https://pixshift.example/linkedin-image-resizer): Resize images for LinkedIn banners, posts, profile photos and company covers.
+
+## Key facts
+
+- Processing is client-side (browser Canvas API); files are not uploaded.
+- Input formats: JPG, PNG, WebP, GIF, BMP, AVIF (browser dependent). Output formats: JPG, PNG, WebP.
+- Free to use, no account required.
+
+## Optional
+
+- [About](https://pixshift.example/about)
+- [Privacy](https://pixshift.example/privacy)
+- [Sitemap](https://pixshift.example/sitemap.xml)

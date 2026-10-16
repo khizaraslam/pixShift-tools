@@ -1,0 +1,192 @@
+@import "tailwindcss";
+
+/*
+  Palette: pith (page), pine (ink), zest (the one loud colour), pulp (rare marker).
+  The old "brand" scale is remapped to greens so the tool pages inherit the new look.
+*/
+@theme {
+  --color-pith: #f5f7ec;
+  --color-pine: #0d2b24;
+  --color-zest: #c8f23a;
+  --color-pulp: #ff6a8b;
+  --color-brand-50: #f1f9d8;
+  --color-brand-100: #e3f4ae;
+  --color-brand-500: #3f7d5c;
+  --color-brand-600: #1f5a46;
+  --color-brand-700: #0d2b24;
+  --color-accent: #c8f23a;
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-anybody), "Arial Narrow", ui-sans-serif, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--color-pith);
+    color: var(--color-pine);
+  }
+  h1,
+  h2 {
+    font-family: var(--font-display);
+    font-variation-settings: "wdth" 88;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* Headline type that squeezes: the width axis is driven by --w. */
+.squeeze {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" var(--w, 100);
+}
+
+.hero-glow {
+  background: radial-gradient(50rem 24rem at 92% -10%, rgba(200, 242, 58, 0.4), transparent 60%);
+}
+
+.checker {
+  background-image:
+    linear-gradient(45deg, #dfe5cf 25%, transparent 25%),
+    linear-gradient(-45deg, #dfe5cf 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #dfe5cf 75%),
+    linear-gradient(-45deg, transparent 75%, #dfe5cf 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+}
+
+/* Thick quality slider */
+.sq-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--color-pine);
+  outline: none;
+}
+.sq-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  background: var(--color-zest);
+  border: 5px solid var(--color-pine);
+  cursor: grab;
+}
+.sq-range::-moz-range-thumb {
+  height: 26px;
+  width: 26px;
+  border-radius: 50%;
+  background: var(--color-zest);
+  border: 5px solid var(--color-pine);
+  cursor: grab;
+}
+.sq-range:focus-visible {
+  outline: 3px solid var(--color-pulp);
+  outline-offset: 8px;
+}
+
+/* Tool index: names widen on hover, mini visuals only move while hovered. */
+.tool-name {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 80;
+  transition: font-variation-settings 0.35s ease;
+}
+@media (min-width: 640px) {
+  .tool-name {
+    font-variation-settings: "wdth" 66;
+  }
+}
+.tool-row:hover .tool-name,
+.tool-row:focus-visible .tool-name {
+  font-variation-settings: "wdth" 118;
+}
+
+.a {
+  animation-duration: 1.7s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
+}
+.tool-row:hover .a,
+.tool-row:focus-visible .a {
+  animation-play-state: running;
+}
+.a-shrink { animation-name: shrink-x; }
+.a-resize { animation-name: resize-box; }
+.a-needle { animation-name: needle; }
+.a-fade { animation-name: fade-out; }
+.a-pop { animation-name: pop; }
+.a-slide { animation-name: slide-x; }
+.a-float { animation-name: float-y; }
+
+@keyframes shrink-x { 0%, 10% { transform: scaleX(1); } 60%, 100% { transform: scaleX(0.3); } }
+@keyframes resize-box { 0%, 100% { transform: scale(0.7); } 50% { transform: scale(1.2, 1); } }
+@keyframes needle { 0%, 100% { transform: rotate(-65deg); } 50% { transform: rotate(65deg); } }
+@keyframes fade-out { 0%, 20% { opacity: 1; } 60%, 100% { opacity: 0.1; } }
+@keyframes pop { 0%, 100% { transform: scale(1); } 50% { transform: scale(0.8); } }
+@keyframes slide-x { 0%, 100% { transform: translateX(-4px); } 50% { transform: translateX(6px); } }
+@keyframes float-y { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+/* Scrolls with wheel, touch and keyboard, but shows no scrollbar. */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Prints hanging on a line: tilted, then they straighten and lift on hover or focus. */
+.print {
+  transform: rotate(var(--r, 0deg));
+  transform-origin: 50% -14px;
+  transition:
+    transform 0.3s cubic-bezier(0.3, 1.4, 0.5, 1),
+    box-shadow 0.3s ease;
+}
+.print:hover,
+.print:focus-visible {
+  transform: rotate(0deg) translateY(-6px) scale(1.04);
+  box-shadow: 9px 9px 0 0 #0d2b24;
+}
+
+/* Film strip edge: a row of sprocket holes. */
+.sprockets {
+  height: 12px;
+  background-image: linear-gradient(90deg, var(--color-pith) 55%, transparent 55%);
+  background-size: 30px 100%;
+  opacity: 0.9;
+}
+
+/* A soft fade when the person picks a different goal. No movement, so nothing jumps. */
+.frame-in {
+  animation: frame-in 0.25s ease both;
+}
+@keyframes frame-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .a,
+  .frame-in {
+    animation: none;
+  }
+  .print {
+    transition: none;
+  }
+  .tool-name {
+    transition: none;
+  }
+}
