@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@imgly/background-removal": "^1.7.0",
     "fflate": "^0.8.2",
     "next": "^15.0.0",
     "react": "^19.0.0",

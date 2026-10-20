@@ -3,28 +3,26 @@ import FaqList from "@/components/FaqList";
 import JsonLd from "@/components/JsonLd";
 import HeroLab from "@/components/home/HeroLab";
 import ToolIndex from "@/components/home/ToolIndex";
-// import SizeFinder from "@/components/home/SizeFinder";
-import SafeZoneChecker from "@/components/Safezonechecker";
+import SizeFinder from "@/components/home/SizeFinder";
 import PhotoId from "@/components/home/PhotoId";
 import { SITE_FAQS, TOOLS } from "@/lib/tools";
 import { SITE, absoluteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "PixShift – Free Image Compressor, Resizer & Converter Online",
+  title: "PixShift",
   description:
-    "Free online image tools: compress JPG and PNG, resize photos, convert to WebP, JPG to PNG, PNG to JPG, aspect ratio calculator, Instagram and LinkedIn resizers. Private, in your browser.",
+    "Free online image tools: compress to 50KB or 100KB, resize, convert JPG, PNG, WebP and AVIF, crop, remove backgrounds, add watermarks, social media sizes, PDF, colour picker and calculators. Private, in your browser.",
   alternates: { canonical: "/" },
   keywords: [
     "image compressor",
     "image resizer",
-    "jpg compressor",
-    "png compressor",
-    "webp converter",
+    "compress image to 100kb",
     "jpg to png",
-    "png to jpg",
-    "aspect ratio calculator",
-    "instagram image resizer",
-    "linkedin image resizer",
+    "png to webp",
+    "background remover",
+    "instagram post size",
+    "image to pdf",
+    "free image tools online",
   ],
 };
 
@@ -35,7 +33,7 @@ export default function HomePage() {
       "@type": "WebPage",
       "@id": absoluteUrl("/#webpage"),
       url: SITE.url,
-      name: "PixShift – Free Image Compressor, Resizer & Converter",
+      name: "PixShift Free Image Tools",
       isPartOf: { "@id": absoluteUrl("/#website") },
       about: { "@type": "Thing", name: "Online image editing tools" },
       datePublished: SITE.launched,
@@ -70,9 +68,8 @@ export default function HomePage() {
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <ToolIndex />
-        <SafeZoneChecker />
         <PhotoId />
-        {/* <SizeFinder /> */}
+        <SizeFinder />
 
         <section
           aria-labelledby="private-heading"

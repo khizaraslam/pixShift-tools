@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: `Privacy Policy – ${SITE.name}`,
+  title: `Privacy Policy ${SITE.name}`,
   description: `${SITE.name} processes images locally in your browser. Read what data we do and do not collect.`,
   alternates: { canonical: "/privacy" },
 };

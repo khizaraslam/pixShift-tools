@@ -1,5 +1,48 @@
-export type ToolKind = "compress" | "resize" | "convert" | "aspect" | "social";
-export type Format = "jpeg" | "png" | "webp";
+export type ToolKind = "compress" | "resize" | "convert" | "aspect" | "social" | "target" | "fixed";
+export type Format = "jpeg" | "png" | "webp" | "avif";
+
+/** Which screen runs the tool. */
+export type Engine =
+  | "image" // batch compress / resize / convert / presets
+  | "editor" // pixel edits (see lib/ops.ts)
+  | "crop"
+  | "color"
+  | "calc"
+  | "base64"
+  | "pdf"
+  | "combine"
+  | "split"
+  | "favicon"
+  | "collage"
+  | "meme";
+
+export type ToolGroup = "compress" | "convert" | "resize" | "social" | "edit" | "color" | "calc" | "more";
+
+export type OpId =
+  | "rotate"
+  | "watermark"
+  | "exif"
+  | "enhance"
+  | "sharpen"
+  | "bw"
+  | "upscale"
+  | "blurbg"
+  | "inpaint"
+  | "redact"
+  | "bgremove"
+  | "bgchange"
+  | "transparent"
+  | "border"
+  | "filter"
+  | "invert"
+  | "blur"
+  | "sketch"
+  | "pixel"
+  | "vignette"
+  | "text"
+  | "pad";
+
+export type CalcId = "aspect" | "dpi" | "px-to-in" | "in-to-px" | "filesize";
 
 export interface Preset {
   id: string;
@@ -13,7 +56,7 @@ export interface Faq {
   a: string;
 }
 
-export interface Tool {
+export interface BaseTool {
   slug: string;
   name: string;
   icon: string;
@@ -26,6 +69,10 @@ export interface Tool {
   acceptLabel: string;
   presets?: Preset[];
   platform?: string;
+  /** Target file size in KB (kind "target"). */
+  targetKb?: number;
+  /** Fixed output size in pixels (kind "fixed"). */
+  fixed?: { w: number; h: number };
   title: string;
   description: string;
   h1: string;
@@ -38,9 +85,35 @@ export interface Tool {
   related: string[];
 }
 
+export interface Tool extends BaseTool {
+  group: ToolGroup;
+  engine: Engine;
+  /** One short line for cards and the tool index. */
+  short: string;
+  /** Print colour used on the homepage and in share images. */
+  color: string;
+  op?: OpId;
+  calc?: CalcId;
+  /** Engine specific switch: "pick" | "palette" (color), "circle" (crop), "to" | "from" (base64) */
+  mode?: string;
+  /** Optional note shown above the tool (limits, honesty about what it can do). */
+  note?: string;
+}
+
+export const GROUP_LABEL: Record<ToolGroup, { label: string; blurb: string }> = {
+  compress: { label: "Compress", blurb: "Make files smaller, or hit an exact size like 50 KB." },
+  convert: { label: "Convert", blurb: "Switch between JPG, PNG, WebP, AVIF and SVG." },
+  resize: { label: "Resize", blurb: "Exact pixels, percentages and ready-made sizes." },
+  social: { label: "Social media", blurb: "The right size for every post, cover and profile photo." },
+  edit: { label: "Edit", blurb: "Crop, rotate, clean up, enhance and mark your photos." },
+  color: { label: "Colours", blurb: "Pick or pull colours straight from a picture." },
+  calc: { label: "Calculators", blurb: "Aspect ratio, DPI, print size and file size maths." },
+  more: { label: "More", blurb: "PDF, favicons, Base64 and other handy extras." },
+};
+
 const ANY_IMAGE = "image/jpeg,image/png,image/webp,image/gif,image/bmp,image/avif";
 
-export const TOOLS: Tool[] = [
+const HAND: BaseTool[] = [
   {
     slug: "image-compressor",
     name: "Image Compressor",
@@ -50,7 +123,7 @@ export const TOOLS: Tool[] = [
     output: "same",
     accept: ANY_IMAGE,
     acceptLabel: "JPG, PNG, WebP, GIF, BMP, AVIF",
-    title: "Image Compressor – Reduce Image Size Online Free | PixShift",
+    title: "Image Compressor Reduce Image Size Online Free | PixShift",
     description:
       "Compress JPG, PNG and WebP images online for free. Reduce file size while keeping quality. Runs in your browser, no upload, no signup.",
     h1: "Free Image Compressor",
@@ -103,7 +176,7 @@ export const TOOLS: Tool[] = [
     output: "same",
     accept: ANY_IMAGE,
     acceptLabel: "JPG, PNG, WebP, GIF, BMP, AVIF",
-    title: "Image Resizer – Resize Photos by Pixels or Percent | PixShift",
+    title: "Image Resizer Resize Photos by Pixels or Percent | PixShift",
     description:
       "Resize images to exact width and height or by percentage. Keep aspect ratio, batch resize and download instantly. Free and private.",
     h1: "Free Image Resizer",
@@ -145,7 +218,7 @@ export const TOOLS: Tool[] = [
       "change image dimensions",
       "bulk image resizer",
     ],
-    related: ["image-compressor", "aspect-ratio-calculator", "instagram-image-resizer", "linkedin-image-resizer"],
+    related: ["image-compressor", "aspect-ratio-calculator", "instagram-post-resizer", "linkedin-post-resizer"],
   },
   {
     slug: "jpg-compressor",
@@ -156,7 +229,7 @@ export const TOOLS: Tool[] = [
     output: "jpeg",
     accept: "image/jpeg",
     acceptLabel: "JPG / JPEG",
-    title: "JPG Compressor – Compress JPEG Images Online | PixShift",
+    title: "JPG Compressor Compress JPEG Images Online | PixShift",
     description:
       "Compress JPG and JPEG photos online for free. Shrink file size with an adjustable quality slider. Private, fast, no signup.",
     h1: "Free JPG Compressor",
@@ -203,7 +276,7 @@ export const TOOLS: Tool[] = [
     output: "png",
     accept: "image/png",
     acceptLabel: "PNG",
-    title: "PNG Compressor – Reduce PNG File Size Online | PixShift",
+    title: "PNG Compressor Reduce PNG File Size Online | PixShift",
     description:
       "Compress PNG images online while keeping transparency. Smaller PNG files through colour quantization. Free, private and instant.",
     h1: "Free PNG Compressor",
@@ -250,7 +323,7 @@ export const TOOLS: Tool[] = [
     output: "webp",
     accept: ANY_IMAGE,
     acceptLabel: "JPG, PNG, GIF, BMP, AVIF",
-    title: "WebP Converter – Convert JPG & PNG to WebP Online | PixShift",
+    title: "WebP Converter Convert JPG & PNG to WebP Online | PixShift",
     description:
       "Convert JPG, PNG and other images to WebP online for free. Smaller files, faster websites. No upload and no signup.",
     h1: "Free WebP Converter",
@@ -297,7 +370,7 @@ export const TOOLS: Tool[] = [
     output: "png",
     accept: "image/jpeg",
     acceptLabel: "JPG / JPEG",
-    title: "JPG to PNG Converter – Convert JPEG to PNG Free | PixShift",
+    title: "JPG to PNG Converter Convert JPEG to PNG Free | PixShift",
     description:
       "Convert JPG to PNG online in one click. Lossless PNG output, batch conversion, no upload and no signup.",
     h1: "JPG to PNG Converter",
@@ -340,7 +413,7 @@ export const TOOLS: Tool[] = [
     output: "jpeg",
     accept: "image/png",
     acceptLabel: "PNG",
-    title: "PNG to JPG Converter – Convert PNG to JPEG Free | PixShift",
+    title: "PNG to JPG Converter Convert PNG to JPEG Free | PixShift",
     description:
       "Convert PNG to JPG online and cut file size. Choose quality, batch convert, transparent areas become white. Free and private.",
     h1: "PNG to JPG Converter",
@@ -383,7 +456,7 @@ export const TOOLS: Tool[] = [
     output: "same",
     accept: "",
     acceptLabel: "",
-    title: "Aspect Ratio Calculator – Find Ratio & Resize Dimensions | PixShift",
+    title: "Aspect Ratio Calculator Find Ratio & Resize Dimensions | PixShift",
     description:
       "Calculate aspect ratio from width and height, or find the missing dimension when resizing. Includes common ratios like 16:9, 4:3 and 1:1.",
     h1: "Aspect Ratio Calculator",
@@ -425,139 +498,48 @@ export const TOOLS: Tool[] = [
       "16:9 calculator",
       "resize keep aspect ratio",
     ],
-    related: ["image-resizer", "instagram-image-resizer", "linkedin-image-resizer", "image-compressor"],
-  },
-  {
-    slug: "instagram-image-resizer",
-    name: "Instagram Image Resizer",
-    icon: "📸",
-    gradient: "from-pink-500 via-rose-500 to-orange-400",
-    kind: "social",
-    output: "jpeg",
-    platform: "Instagram",
-    accept: ANY_IMAGE,
-    acceptLabel: "JPG, PNG, WebP and more",
-    presets: [
-      { id: "square", label: "Square post (1:1) – 1080×1080", w: 1080, h: 1080 },
-      { id: "portrait", label: "Portrait post (4:5) – 1080×1350", w: 1080, h: 1350 },
-      { id: "grid", label: "Grid portrait (3:4) – 1080×1440", w: 1080, h: 1440 },
-      { id: "landscape", label: "Landscape post (1.91:1) – 1080×566", w: 1080, h: 566 },
-      { id: "story", label: "Story / Reel (9:16) – 1080×1920", w: 1080, h: 1920 },
-      { id: "profile", label: "Profile photo – 320×320", w: 320, h: 320 },
-    ],
-    title: "Instagram Image Resizer – Post, Story & Reel Sizes | PixShift",
-    description:
-      "Resize photos for Instagram posts, stories, reels and profile pictures. Fit or fill, with background colour. Free, private, no signup.",
-    h1: "Instagram Image Resizer",
-    quickAnswer:
-      "The most common Instagram sizes are 1080×1080 for square posts, 1080×1350 for portrait posts and 1080×1920 for Stories and Reels. Pick a preset in PixShift, choose fit or fill, and download.",
-    intro: [
-      "Instagram crops anything that does not match its supported shapes. Resize your photo to the right dimensions first so you control exactly what stays in the frame.",
-      "Choose a preset, then decide whether to fill the frame (cropping edges) or fit the whole image inside with a background colour.",
-    ],
-    steps: [
-      "Add your photo.",
-      "Pick an Instagram preset: post, portrait, story or profile.",
-      "Choose Fill or Fit, then download the ready-to-post image.",
-    ],
-    benefits: [
-      { title: "Latest sizes", text: "Presets for square, portrait, grid, landscape, story and profile." },
-      { title: "Fit or fill", text: "Crop to fill or add a background colour to keep everything visible." },
-      { title: "Sharp output", text: "Exports at full recommended pixel size." },
-      { title: "Private", text: "Photos never leave your device." },
-    ],
-    faqs: [
-      {
-        q: "What size should an Instagram post be?",
-        a: "Square posts use 1080×1080. Portrait 4:5 posts use 1080×1350, and the newer 3:4 grid portrait uses 1080×1440. Landscape posts use 1080×566.",
-      },
-      {
-        q: "What is the Instagram Story size?",
-        a: "Stories and Reels use a 9:16 vertical frame, recommended at 1080×1920 pixels.",
-      },
-      {
-        q: "Will Instagram compress my image?",
-        a: "Yes, Instagram re-compresses uploads. Starting at the recommended pixel size helps keep results sharp. Platform specs change, so check Instagram's current guidance if in doubt.",
-      },
-    ],
-    keywords: [
-      "instagram image resizer",
-      "resize image for instagram",
-      "instagram photo size",
-      "instagram story size",
-      "instagram post size 2026",
-    ],
-    related: ["linkedin-image-resizer", "image-resizer", "aspect-ratio-calculator", "image-compressor"],
-  },
-  {
-    slug: "linkedin-image-resizer",
-    name: "LinkedIn Image Resizer",
-    icon: "💼",
-    gradient: "from-blue-600 to-sky-500",
-    kind: "social",
-    output: "jpeg",
-    platform: "LinkedIn",
-    accept: ANY_IMAGE,
-    acceptLabel: "JPG, PNG, WebP and more",
-    presets: [
-      { id: "post", label: "Shared link / post image – 1200×627", w: 1200, h: 627 },
-      { id: "square", label: "Square post – 1200×1200", w: 1200, h: 1200 },
-      { id: "profile", label: "Profile photo – 400×400", w: 400, h: 400 },
-      { id: "banner", label: "Personal banner – 1584×396", w: 1584, h: 396 },
-      { id: "company-cover", label: "Company cover – 1128×191", w: 1128, h: 191 },
-      { id: "logo", label: "Company logo – 300×300", w: 300, h: 300 },
-      { id: "article", label: "Article cover – 1280×720", w: 1280, h: 720 },
-    ],
-    title: "LinkedIn Image Resizer – Banner, Post & Profile Sizes | PixShift",
-    description:
-      "Resize images for LinkedIn banners, posts, profile photos and company covers. Fit or fill, free and private. No signup.",
-    h1: "LinkedIn Image Resizer",
-    quickAnswer:
-      "Common LinkedIn sizes are 1200×627 for post and link images, 400×400 for profile photos and 1584×396 for personal banners. Choose a preset in PixShift and download the resized image.",
-    intro: [
-      "A well-sized banner and profile photo make a professional first impression. LinkedIn crops and scales images, so uploading the right dimensions keeps faces and text from being cut off.",
-      "Pick the placement you need, choose fill or fit, and export an image ready to upload.",
-    ],
-    steps: [
-      "Add your image.",
-      "Select a LinkedIn preset: banner, post, profile, company cover and more.",
-      "Choose Fill or Fit and download.",
-    ],
-    benefits: [
-      { title: "Every placement", text: "Profile, banner, post, article and company page sizes." },
-      { title: "Fit or fill", text: "Keep the whole image or crop to the frame." },
-      { title: "Professional output", text: "High-quality export at the recommended size." },
-      { title: "Private", text: "Your images stay on your device." },
-    ],
-    faqs: [
-      {
-        q: "What size is a LinkedIn banner?",
-        a: "The personal profile banner is recommended at 1584×396 pixels. Company page covers are narrower at 1128×191.",
-      },
-      {
-        q: "What is the best LinkedIn post image size?",
-        a: "1200×627 works well for shared link and landscape images, and 1200×1200 works for square posts.",
-      },
-      {
-        q: "What size should my LinkedIn profile photo be?",
-        a: "400×400 pixels is the recommended minimum for a square profile photo. LinkedIn displays it in a circle, so keep your face centred.",
-      },
-    ],
-    keywords: [
-      "linkedin image resizer",
-      "linkedin banner size",
-      "resize image for linkedin",
-      "linkedin profile photo size",
-      "linkedin post image size",
-    ],
-    related: ["instagram-image-resizer", "image-resizer", "aspect-ratio-calculator", "jpg-compressor"],
+    related: ["image-resizer", "instagram-post-resizer", "linkedin-post-resizer", "image-compressor"],
   },
 ];
+
+
+const HAND_META: Record<string, Pick<Tool, "group" | "engine" | "short" | "color" | "op" | "calc">> = {
+  "image-compressor": { group: "compress", engine: "image", short: "Smaller JPG, PNG and WebP files", color: "#c8f23a" },
+  "image-resizer": { group: "resize", engine: "image", short: "Exact pixels or a percentage", color: "#ff9db5" },
+  "jpg-compressor": { group: "compress", engine: "image", short: "Fit photos under upload limits", color: "#ffd37a" },
+  "png-compressor": { group: "compress", engine: "image", short: "Fewer colours, transparency kept", color: "#9ad1ff" },
+  "webp-converter": { group: "convert", engine: "image", short: "Lighter images for websites", color: "#8fe3c0" },
+  "jpg-to-png": { group: "convert", engine: "image", short: "Lossless PNG from a JPG", color: "#ffb36b" },
+  "png-to-jpg": { group: "convert", engine: "image", short: "Shrink PNGs into JPGs", color: "#c8f23a" },
+  "aspect-ratio-calculator": { group: "calc", engine: "calc", calc: "aspect", short: "Find a ratio or a missing side", color: "#b9a2ff" },
+};
+
+const BASE: Tool[] = HAND.map((t) => ({ ...t, ...HAND_META[t.slug] }));
+
+// Imported last: catalog.ts only needs the types above.
+import { GENERATED } from "./catalog";
+
+export const TOOLS: Tool[] = [...BASE, ...GENERATED];
 
 export const TOOL_MAP: Record<string, Tool> = Object.fromEntries(TOOLS.map((t) => [t.slug, t]));
 
 export function getTool(slug: string) {
   return TOOL_MAP[slug];
+}
+
+export function toolsInGroup(g: ToolGroup) {
+  return TOOLS.filter((t) => t.group === g);
+}
+
+/** Hand-picked related tools first, then others from the same group. */
+export function relatedTools(tool: Tool, n = 4): Tool[] {
+  const out: Tool[] = [];
+  const add = (t?: Tool) => {
+    if (t && t.slug !== tool.slug && !out.includes(t)) out.push(t);
+  };
+  tool.related.forEach((s) => add(TOOL_MAP[s]));
+  TOOLS.filter((t) => t.group === tool.group).forEach(add);
+  return out.slice(0, n);
 }
 
 export const SITE_FAQS: Faq[] = [
@@ -571,6 +553,6 @@ export const SITE_FAQS: Faq[] = [
   },
   {
     q: "Which image formats are supported?",
-    a: "JPG/JPEG, PNG, WebP, GIF, BMP and AVIF can be opened (depending on your browser). Output formats are JPG, PNG and WebP.",
+    a: "JPG/JPEG, PNG, WebP, GIF, BMP and AVIF can be opened (depending on your browser). Output formats are JPG, PNG, WebP and (in Chromium browsers) AVIF.",
   },
 ];

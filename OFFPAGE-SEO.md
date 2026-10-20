@@ -1,6 +1,6 @@
 # Off-Page SEO, AEO, GEO & LLMO Playbook for PixShift
 
-Off-page work cannot be coded; it has to be done after launch. This is a practical checklist. Replace `pixshift.example` with your real domain first (set `NEXT_PUBLIC_SITE_URL`, then update `public/llms.txt`).
+Off-page work cannot be coded; it has to be done after launch. This is a practical checklist. Replace `pixshift.example` with your real domain first (set `NEXT_PUBLIC_SITE_URL`, `/llms.txt` is generated from the tool list, nothing to edit).
 
 ## 0. Launch checklist (week 1)
 
@@ -52,7 +52,7 @@ Goal: be cited by ChatGPT, Perplexity, Gemini, Copilot and Claude.
 
 ## 4. LLMO (LLM Optimization)
 
-- `public/llms.txt` summarises the site for LLMs (built in). Keep it accurate and update when you add tools. Optionally add `llms-full.txt` with the full text of key pages.
+- `/llms.txt` summarises the site for LLMs. It is generated from `lib/tools.ts` + `lib/catalog.ts`, so it updates itself when you add tools. Optionally add `llms-full.txt` with the full text of key pages.
 - Plain, semantic HTML with server-rendered content (Next.js does this) so crawlers that do not run JavaScript can read pages.
 - Unambiguous entity description: "PixShift is a free browser-based image compression and conversion tool" repeated on home, About and profiles.
 - Test regularly: ask ChatGPT, Perplexity, Gemini and Claude things like "best free private image compressor" and "how to resize image for LinkedIn banner", and record whether PixShift is mentioned or cited. Adjust content and outreach based on gaps.
@@ -78,3 +78,15 @@ Goal: be cited by ChatGPT, Perplexity, Gemini, Copilot and Claude.
 - Fake reviews or fake aggregate ratings in schema (violates Google guidelines; none are included here).
 - Cloaked or auto-generated thin pages at scale.
 - Claiming "no data collected" if you add analytics or ads. Update the privacy page accordingly.
+
+
+## With 90 tools: where to push first
+
+High-intent, lower-competition pages convert best in the first months. Start link building and social posts with these:
+
+- Size-target pages: `compress-image-to-20kb`, `-50kb`, `-100kb`, `-200kb` (exam, visa and job-form audiences; very common searches in Pakistan, India and Bangladesh).
+- `passport-size-photo-maker` and `background-changer` (ID photo audiences).
+- Social size pages (`instagram-post-resizer`, `youtube-thumbnail-resizer`, `whatsapp-dp-resizer`): share a clean "all sizes" cheat sheet on Pinterest, Reddit and X, linking to the tool.
+- Format pages (`webp-to-jpg`, `avif-to-jpg`, `jpg-to-webp`): answer "how do I open/convert WebP" questions on Quora, Reddit and Stack Exchange with a link.
+- Developer pages (`image-to-base64`, `favicon-generator`, `svg-to-png`): list on dev tool directories, Product Hunt and Hacker News "Show HN".
+- Keep the honest limits in the copy (background remover is colour-based, not AI). Trust earns links and avoids bad reviews.

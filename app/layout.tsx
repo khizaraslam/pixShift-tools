@@ -4,7 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
-import { SITE, absoluteUrl } from "@/lib/site";
+import { SITE, absoluteUrl, logoUrl } from "@/lib/site";
 
 // Anybody has a width axis: headlines can squeeze and stretch.
 const display = Anybody({ subsets: ["latin"], axes: ["wdth"], variable: "--font-anybody", display: "swap" });
@@ -19,7 +19,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} – Free Image Compressor, Resizer & Converter`,
+    default: `${SITE.name} Free Image Compressor, Resizer & Converter`,
     template: `%s`,
   },
   description: SITE.description,
@@ -33,13 +33,13 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     locale: SITE.locale,
     url: SITE.url,
-    title: `${SITE.name} – Free Image Compressor, Resizer & Converter`,
+    title: `${SITE.name} Free Image Compressor, Resizer & Converter`,
     description: SITE.description,
   },
   twitter: {
     card: "summary_large_image",
     site: SITE.twitter,
-    title: `${SITE.name} – Free Image Tools`,
+    title: `${SITE.name} Free Image Tools`,
     description: SITE.description,
   },
   robots: {
@@ -58,7 +58,7 @@ const globalSchema = [
     "@id": absoluteUrl("/#organization"),
     name: SITE.name,
     url: SITE.url,
-    logo: absoluteUrl("/icon.svg"),
+    logo: logoUrl(),
     email: SITE.email,
     // Add your real profiles here (LinkedIn, X, GitHub, YouTube) to strengthen entity signals.
     sameAs: [],

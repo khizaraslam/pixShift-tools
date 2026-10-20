@@ -4,7 +4,7 @@ import { SITE, absoluteUrl } from "@/lib/site";
 import { TOOLS } from "@/lib/tools";
 
 export const metadata: Metadata = {
-  title: `About ${SITE.name} – Private, Free Image Tools`,
+  title: `About ${SITE.name} Private, Free Image Tools`,
   description: `Learn what ${SITE.name} is, how the tools work, and why your images never leave your browser.`,
   alternates: { canonical: "/about" },
 };
@@ -24,7 +24,7 @@ export default function AboutPage() {
       <h1 className="text-4xl font-extrabold tracking-tight">About {SITE.name}</h1>
       <div className="mt-6 space-y-4 leading-relaxed text-slate-700">
         <p>
-          {SITE.name} is a free collection of {TOOLS.length} image tools: compressing, resizing, converting formats and preparing pictures for social media.
+          {SITE.name} is a free collection of image tools: compressing, resizing, converting formats and preparing pictures for social media.
         </p>
         <p>
           Every tool runs inside your browser using standard web technologies such as the Canvas API. That means your photos are processed on your own device and are not uploaded to our servers.

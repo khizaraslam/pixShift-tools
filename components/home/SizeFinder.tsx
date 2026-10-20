@@ -5,7 +5,18 @@ import { useState } from "react";
 import { gcd } from "@/lib/image";
 import { getTool } from "@/lib/tools";
 
-const PLATFORMS = ["instagram-image-resizer", "linkedin-image-resizer"] as const;
+const PLATFORMS = [
+  "instagram-post-resizer",
+  "instagram-story-resizer",
+  "facebook-post-resizer",
+  "facebook-cover-resizer",
+  "youtube-thumbnail-resizer",
+  "linkedin-post-resizer",
+  "linkedin-banner-resizer",
+  "twitter-image-resizer",
+  "pinterest-pin-resizer",
+  "whatsapp-dp-resizer",
+] as const;
 
 function ratioLabel(w: number, h: number) {
   const d = gcd(w, h);
@@ -35,7 +46,7 @@ export default function SizeFinder() {
 
       <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_1.1fr]">
         <div>
-          <div className="flex gap-2" role="group" aria-label="Platform">
+          <div className="flex flex-wrap gap-2" role="group" aria-label="Platform">
             {PLATFORMS.map((slug, i) => (
               <button
                 key={slug}
@@ -45,7 +56,7 @@ export default function SizeFinder() {
                   setPi(i);
                   setSi(0);
                 }}
-                className={`rounded-full border-[3px] border-pine px-5 py-2 text-base font-bold transition focus:outline-none focus-visible:ring-4 focus-visible:ring-pulp ${
+                className={`rounded-full border-[3px] border-pine px-4 py-1.5 text-sm font-bold transition focus:outline-none focus-visible:ring-4 focus-visible:ring-pulp ${
                   pi === i ? "bg-pine text-zest" : "hover:bg-zest"
                 }`}
               >

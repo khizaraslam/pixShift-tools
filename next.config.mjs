@@ -3,6 +3,13 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
+  // Old two-in-one social pages now have their own pages per placement.
+  async redirects() {
+    return [
+      { source: "/instagram-image-resizer", destination: "/instagram-post-resizer", permanent: true },
+      { source: "/linkedin-image-resizer", destination: "/linkedin-post-resizer", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

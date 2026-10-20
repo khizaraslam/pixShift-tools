@@ -6,6 +6,7 @@ import type { Format, Tool } from "@/lib/tools";
 import {
   EXT,
   baseName,
+  fitUnder,
   formatBytes,
   formatFromMime,
   loadBitmap,
@@ -53,7 +54,8 @@ export default function ImageTool({ tool }: { tool: Tool }) {
   const prevCount = useRef(0);
   const urlsRef = useRef<string[]>([]);
 
-  const preset = tool.presets?.find((p) => p.id === presetId);
+  const preset = tool.kind === "fixed" && tool.fixed ? { id: "fixed", label: "", ...tool.fixed } : tool.presets?.find((p) => p.id === presetId);
+  const frameMode = tool.kind === "social" || tool.kind === "fixed";
   const first = items.find((i) => i.bitmap)?.bitmap;
 
   // Seed width/height from the first image (resizer).
@@ -96,10 +98,23 @@ export default function ImageTool({ tool }: { tool: Tool }) {
               h = Number(height);
             }
           }
-        } else if (tool.kind === "social" && preset) {
+        } else if (frameMode && preset) {
           w = preset.w;
           h = preset.h;
           fitMode = fit;
+        }
+        if (tool.kind === "target" && tool.targetKb) {
+          const r = await fitUnder(item.bitmap, Math.floor(tool.targetKb * 1024 * 0.99), "jpeg", bg);
+          const url = URL.createObjectURL(r.blob);
+          urlsRef.current.push(url);
+          setItems((prev) =>
+            prev.map((p) =>
+              p.id === item.id
+                ? { ...p, status: "done", outBlob: r.blob, outUrl: url, outName: `${baseName(item.file.name)}-${tool.targetKb}kb.jpg`, outW: r.width, outH: r.height }
+                : p,
+            ),
+          );
+          return;
         }
         const res = await processImage(item.bitmap, {
           format,
@@ -112,7 +127,7 @@ export default function ImageTool({ tool }: { tool: Tool }) {
         });
         const url = URL.createObjectURL(res.blob);
         urlsRef.current.push(url);
-        const suffix = tool.kind === "social" && preset ? `-${preset.w}x${preset.h}` : tool.kind === "resize" ? `-${res.width}x${res.height}` : "-pixshift";
+        const suffix = frameMode && preset ? `-${preset.w}x${preset.h}` : tool.kind === "resize" ? `-${res.width}x${res.height}` : "-pixshift";
         setItems((prev) =>
           prev.map((p) =>
             p.id === item.id
@@ -136,7 +151,7 @@ export default function ImageTool({ tool }: { tool: Tool }) {
         );
       }
     },
-    [bg, fit, height, lock, mode, percent, preset, quality, resolveFormat, tool.kind, width],
+    [bg, fit, frameMode, height, lock, mode, percent, preset, quality, resolveFormat, tool.kind, tool.targetKb, width],
   );
 
   // Re-process whenever settings change (debounced).
@@ -218,9 +233,9 @@ export default function ImageTool({ tool }: { tool: Tool }) {
 
   const showQuality =
     tool.kind === "compress" ||
-    tool.kind === "social" ||
+    frameMode ||
     (tool.kind === "convert" && tool.output !== "png") ||
-    tool.kind === "resize";
+    (tool.kind === "resize" && tool.output !== "png");
 
   // Once files are added the big drop area shrinks, so the results are not pushed off screen.
   const compact = items.length > 0;
@@ -295,10 +310,16 @@ export default function ImageTool({ tool }: { tool: Tool }) {
       <div ref={workRef} className="scroll-mt-20" aria-hidden />
 
       {/* Settings */}
-      {(showQuality || tool.kind === "social" || tool.kind === "resize") && (
+      {tool.kind === "target" && (
+        <p className="rounded-2xl border-2 border-pine bg-zest/60 p-4 text-sm font-semibold text-pine">
+          🎯 Target: under {tool.targetKb} KB. PixShift finds the best quality that fits. No settings needed.
+        </p>
+      )}
+      {(showQuality || frameMode || tool.kind === "resize") && (
         <div className="grid gap-5 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:grid-cols-2 sm:p-6">
-          {tool.kind === "social" && tool.presets && (
+          {frameMode && (
             <>
+              {tool.kind === "social" && tool.presets && tool.presets.length > 1 ? (
               <ThemedSelect
                 className="sm:col-span-2"
                 label={`${tool.platform} size`}
@@ -309,6 +330,11 @@ export default function ImageTool({ tool }: { tool: Tool }) {
                   return { value: p.id, label: name, detail: size ?? `${p.w}×${p.h}` };
                 })}
               />
+              ) : (
+                <p className="text-sm font-medium text-slate-700 sm:col-span-2">
+                  Output size: <strong>{preset?.w}×{preset?.h} px</strong>
+                </p>
+              )}
               <fieldset>
                 <legend className="text-sm font-medium text-slate-700">Resize mode</legend>
                 <div className="mt-2 flex gap-2">
@@ -439,7 +465,7 @@ export default function ImageTool({ tool }: { tool: Tool }) {
               {totals.count > 0 && totals.before > 0 && (
                 <span className="ml-2 text-sm font-normal text-slate-500">
                   {formatBytes(totals.before)} → {formatBytes(totals.after)}
-                  {tool.kind === "compress" && totals.after < totals.before && (
+                  {(tool.kind === "compress" || tool.kind === "target") && totals.after < totals.before && (
                     <strong className="ml-2 text-emerald-600">
                       −{Math.round((1 - totals.after / totals.before) * 100)}%
                     </strong>

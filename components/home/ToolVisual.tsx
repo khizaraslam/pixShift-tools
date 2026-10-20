@@ -1,3 +1,5 @@
+import { getTool } from "@/lib/tools";
+
 // Tiny diagrams for the tool index. They only move while the row is hovered or focused.
 
 function Convert({ from, to }: { from: string; to: string }) {
@@ -11,6 +13,20 @@ function Convert({ from, to }: { from: string; to: string }) {
 }
 
 export default function ToolVisual({ slug }: { slug: string }) {
+  // jpg-to-webp, png-to-jpg, avif-to-png ... share one picture.
+  const conv = /^(jpg|png|webp|avif|svg)-to-(jpg|png|webp|avif|svg)$/.exec(slug);
+  if (conv) return <Convert from={conv[1].toUpperCase()} to={conv[2].toUpperCase()} />;
+  const kb = /^compress-image-to-(\d+)kb$/.exec(slug);
+  if (kb) {
+    return (
+      <div className="flex h-full flex-col items-center justify-center gap-2" aria-hidden>
+        <span className="a a-pop rounded-lg border-[3px] border-pine bg-white px-3 py-1 text-xl font-extrabold">{kb[1]} KB</span>
+        <div className="h-3 w-full rounded-full bg-pine/15">
+          <div className="a a-shrink h-3 origin-left rounded-full bg-pine" style={{ width: "70%" }} />
+        </div>
+      </div>
+    );
+  }
   switch (slug) {
     case "image-compressor":
       return (
@@ -78,7 +94,7 @@ export default function ToolVisual({ slug }: { slug: string }) {
           ))}
         </div>
       );
-    case "instagram-image-resizer":
+    case "instagram-post-resizer":
       return (
         <div className="flex h-full items-center justify-center" aria-hidden>
           <div className="a a-float h-16 w-10 rounded-xl border-[3px] border-pine bg-white p-[3px]">
@@ -86,7 +102,7 @@ export default function ToolVisual({ slug }: { slug: string }) {
           </div>
         </div>
       );
-    case "linkedin-image-resizer":
+    case "linkedin-post-resizer":
       return (
         <div className="flex h-full items-center justify-center" aria-hidden>
           <div className="a a-float w-28">
@@ -95,7 +111,14 @@ export default function ToolVisual({ slug }: { slug: string }) {
           </div>
         </div>
       );
-    default:
-      return null;
+    default: {
+      const t = getTool(slug);
+      if (!t) return null;
+      return (
+        <div className="flex h-full items-center justify-center" aria-hidden>
+          <span className="a a-float text-5xl leading-none">{t.icon}</span>
+        </div>
+      );
+    }
   }
 }

@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import ImageTool from "@/components/ImageTool";
-import AspectCalculator from "@/components/AspectCalculator";
+import ToolRunner from "@/components/ToolRunner";
 import FaqList from "@/components/FaqList";
 import JsonLd from "@/components/JsonLd";
 import ToolCard from "@/components/ToolCard";
-import { SITE_FAQS, TOOLS, getTool } from "@/lib/tools";
+import { GROUP_LABEL, SITE_FAQS, TOOLS, getTool, relatedTools } from "@/lib/tools";
 import { SITE, absoluteUrl } from "@/lib/site";
 
 export const dynamicParams = false;
@@ -37,7 +36,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
 
   const url = absoluteUrl(`/${tool.slug}`);
   const faqs = [...tool.faqs, SITE_FAQS[0]];
-  const related = tool.related.map((s) => getTool(s)).filter(Boolean);
+  const related = relatedTools(tool, 4);
 
   const schema = [
     {
@@ -60,7 +59,9 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: SITE.url },
-        { "@type": "ListItem", position: 2, name: tool.name, item: url },
+        { "@type": "ListItem", position: 2, name: "All tools", item: absoluteUrl("/tools") },
+        { "@type": "ListItem", position: 3, name: GROUP_LABEL[tool.group].label, item: absoluteUrl(`/tools#${tool.group}`) },
+        { "@type": "ListItem", position: 4, name: tool.name, item: url },
       ],
     },
     {
@@ -88,6 +89,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <nav aria-label="Breadcrumb" className="text-sm text-slate-500">
             <Link href="/" className="hover:text-brand-700">Home</Link>
             <span className="mx-2" aria-hidden>/</span>
+            <Link href={`/tools#${tool.group}`} className="hover:text-brand-700">{GROUP_LABEL[tool.group].label}</Link>
+            <span className="mx-2" aria-hidden>/</span>
             <span aria-current="page" className="text-slate-700">{tool.name}</span>
           </nav>
           <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">{tool.h1}</h1>
@@ -101,7 +104,15 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
       </div>
 
       <div className="mx-auto max-w-4xl px-4 pb-4 sm:px-6">
-        <div className="mt-4">{tool.kind === "aspect" ? <AspectCalculator /> : <ImageTool tool={tool} />}</div>
+        {tool.note && (
+          <p className="mt-4 rounded-2xl border-2 border-pine bg-zest/40 p-4 text-sm leading-relaxed text-pine">
+            <strong>Good to know: </strong>
+            {tool.note}
+          </p>
+        )}
+        <div className="mt-4">
+          <ToolRunner tool={tool} />
+        </div>
 
         <article className="mt-14 space-y-12">
           <section aria-labelledby="about-heading">
@@ -143,7 +154,9 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
         <section aria-labelledby="related-heading" className="mt-14">
           <h2 id="related-heading" className="text-2xl font-bold tracking-tight">Related tools</h2>
           <div className="mt-5 grid gap-5 sm:grid-cols-2">
-            {related.map((t) => (t ? <ToolCard key={t.slug} tool={t} /> : null))}
+            {related.map((t) => (
+              <ToolCard key={t.slug} tool={t} />
+            ))}
           </div>
         </section>
       </div>

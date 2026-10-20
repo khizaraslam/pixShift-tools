@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { setPending } from "@/lib/pending";
 import { formatBytes } from "@/lib/image";
-import { getTool } from "@/lib/tools";
+import { TOOLS, getTool } from "@/lib/tools";
 import { H, W, drawScene } from "@/lib/scene";
 
 function toJpeg(c: HTMLCanvasElement, q: number) {
@@ -14,9 +14,9 @@ function toJpeg(c: HTMLCanvasElement, q: number) {
 }
 
 function suggest(type: string) {
-  const base = ["image-resizer", "instagram-image-resizer", "linkedin-image-resizer"];
-  if (type === "image/png") return ["png-compressor", "png-to-jpg", "webp-converter", ...base];
-  if (type === "image/jpeg") return ["jpg-compressor", "jpg-to-png", "webp-converter", ...base];
+  const base = ["image-resizer", "instagram-post-resizer", "background-remover"];
+  if (type === "image/png") return ["png-compressor", "png-to-jpg", "png-to-webp", ...base];
+  if (type === "image/jpeg") return ["jpg-compressor", "jpg-to-webp", "compress-image-to-100kb", ...base];
   return ["image-compressor", "webp-converter", ...base];
 }
 
@@ -167,16 +167,44 @@ export default function HeroLab() {
           className="squeeze text-[clamp(1.9rem,6.6vw,5.25rem)] font-extrabold leading-[0.98]"
           style={{ "--w": wdth } as React.CSSProperties}
         >
+          <span
+            className="mb-4 inline-block rounded-full border-[3px] border-pine bg-white px-4 py-1.5 text-sm font-bold leading-snug sm:text-base"
+            style={{ fontVariationSettings: '"wdth" 100', fontFamily: "var(--font-body), ui-sans-serif, system-ui, sans-serif" }}
+          >
+            Free image compressor, resizer and converter
+          </span>
           <span className="block">Squeeze the file.</span>
           <span className="block">Keep the picture.</span>
         </h1>
         <p className="mt-5 max-w-xl text-lg leading-relaxed text-pine/80">
-          A free image compressor, resizer and converter. Drag the slider under the picture: a real JPEG is re-encoded
-          in your browser as you move it, so you can see what every kilobyte costs.
+          Compress, resize and convert photos right here. Move the slider below and watch what every kilobyte costs.
         </p>
+        <ul className="mt-5 flex flex-wrap gap-2 text-sm font-semibold" aria-label="Highlights">
+          {["Free", "No signup", "No watermark"].map((t) => (
+            <li key={t} className="flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 ring-1 ring-pine/15">
+              <span aria-hidden className="text-brand-600">✓</span>
+              {t}
+            </li>
+          ))}
+        </ul>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <button
+            type="button"
+            onClick={() => inputRef.current?.click()}
+            className="rounded-full bg-pine px-6 py-3.5 text-base font-extrabold text-zest transition hover:bg-brand-600 focus:outline-none focus-visible:ring-4 focus-visible:ring-pulp"
+          >
+            Choose a photo
+          </button>
+          <Link
+            href="/tools"
+            className="rounded-full border-2 border-pine px-6 py-3 text-base font-bold transition hover:bg-pine hover:text-zest focus:outline-none focus-visible:ring-4 focus-visible:ring-pulp"
+          >
+            Browse all tools
+          </Link>
+        </div>
 
         <div
-          className={`mt-8 rounded-[2rem] bg-zest p-3 transition-shadow sm:p-5 ${dragging ? "ring-8 ring-pine" : ""}`}
+          className={`mt-10 rounded-[2rem] bg-zest p-3 transition-shadow sm:p-5 ${dragging ? "ring-8 ring-pine" : ""}`}
           onDragOver={(e) => {
             e.preventDefault();
             setDragging(true);
@@ -298,9 +326,7 @@ export default function HeroLab() {
             </div>
           </div>
 
-          <p className="mt-4 text-sm font-medium text-pine/80">
-            Drag the divider across the picture. Left of it is the original, right of it is the compressed version.
-          </p>
+          <p className="mt-4 text-sm font-medium text-pine/80">Drag the divider: original on the left, compressed on the right.</p>
 
           <div className="mt-5">
             <label className="flex items-center justify-between text-sm font-semibold" htmlFor="hero-quality">

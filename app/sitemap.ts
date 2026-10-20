@@ -6,6 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   return [
     { url: absoluteUrl("/"), lastModified: now, changeFrequency: "weekly", priority: 1 },
+    { url: absoluteUrl("/tools"), lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     ...TOOLS.map((t) => ({
       url: absoluteUrl(`/${t.slug}`),
       lastModified: now,
