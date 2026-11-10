@@ -1,6 +1,6 @@
-# Off-Page SEO, AEO, GEO & LLMO Playbook for PixShift
+# Off-Page SEO, AEO, GEO & LLMO Playbook for PixTools
 
-Off-page work cannot be coded; it has to be done after launch. This is a practical checklist. Replace `pixshift.example` with your real domain first (set `NEXT_PUBLIC_SITE_URL`, `/llms.txt` is generated from the tool list, nothing to edit).
+Off-page work cannot be coded; it has to be done after launch. This is a practical checklist. Replace `pixTools.example` with your real domain first (set `NEXT_PUBLIC_SITE_URL`, `/llms.txt` is generated from the tool list, nothing to edit).
 
 ## 0. Launch checklist (week 1)
 
@@ -54,8 +54,8 @@ Goal: be cited by ChatGPT, Perplexity, Gemini, Copilot and Claude.
 
 - `/llms.txt` summarises the site for LLMs. It is generated from `lib/tools.ts` + `lib/catalog.ts`, so it updates itself when you add tools. Optionally add `llms-full.txt` with the full text of key pages.
 - Plain, semantic HTML with server-rendered content (Next.js does this) so crawlers that do not run JavaScript can read pages.
-- Unambiguous entity description: "PixShift is a free browser-based image compression and conversion tool" repeated on home, About and profiles.
-- Test regularly: ask ChatGPT, Perplexity, Gemini and Claude things like "best free private image compressor" and "how to resize image for LinkedIn banner", and record whether PixShift is mentioned or cited. Adjust content and outreach based on gaps.
+- Unambiguous entity description: "PixTools is a free browser-based image compression and conversion tool" repeated on home, About and profiles.
+- Test regularly: ask ChatGPT, Perplexity, Gemini and Claude things like "best free private image compressor" and "how to resize image for LinkedIn banner", and record whether PixTools is mentioned or cited. Adjust content and outreach based on gaps.
 
 ## 5. Content and on-page growth plan
 

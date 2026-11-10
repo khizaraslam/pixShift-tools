@@ -127,7 +127,7 @@ export default function ImageTool({ tool }: { tool: Tool }) {
         });
         const url = URL.createObjectURL(res.blob);
         urlsRef.current.push(url);
-        const suffix = frameMode && preset ? `-${preset.w}x${preset.h}` : tool.kind === "resize" ? `-${res.width}x${res.height}` : "-pixshift";
+        const suffix = frameMode && preset ? `-${preset.w}x${preset.h}` : tool.kind === "resize" ? `-${res.width}x${res.height}` : "-pixtools";
         setItems((prev) =>
           prev.map((p) =>
             p.id === item.id
@@ -219,7 +219,7 @@ export default function ImageTool({ tool }: { tool: Tool }) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "pixshift-images.zip";
+    a.download = "pixtools-images.zip";
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 2000);
   };
@@ -312,7 +312,7 @@ export default function ImageTool({ tool }: { tool: Tool }) {
       {/* Settings */}
       {tool.kind === "target" && (
         <p className="rounded-2xl border-2 border-pine bg-zest/60 p-4 text-sm font-semibold text-pine">
-          🎯 Target: under {tool.targetKb} KB. PixShift finds the best quality that fits. No settings needed.
+          🎯 Target: under {tool.targetKb} KB. PixTools finds the best quality that fits. No settings needed.
         </p>
       )}
       {(showQuality || frameMode || tool.kind === "resize") && (

@@ -18,7 +18,7 @@ export function uniqueName(name: string, used: Set<string>) {
   return out;
 }
 
-export async function zipBlobs(entries: { name: string; blob: Blob }[], zipName = "pixshift-images.zip") {
+export async function zipBlobs(entries: { name: string; blob: Blob }[], zipName = "pixtools-images.zip") {
   const files: Record<string, Uint8Array> = {};
   const used = new Set<string>();
   for (const e of entries) files[uniqueName(e.name, used)] = new Uint8Array(await e.blob.arrayBuffer());

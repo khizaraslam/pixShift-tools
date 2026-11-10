@@ -68,7 +68,7 @@ const SPECS: Spec[] = [
   ...([20, 50, 100, 200] as const).map((kb): Spec => ({
     slug: `compress-image-to-${kb}kb`, name: `Compress Image to ${kb}KB`, group: "compress", engine: "image", kind: "target", output: "jpeg", targetKb: kb,
     icon: "🎯", color: ({ 20: "#ffd37a", 50: "#ff9db5", 100: "#9ad1ff", 200: "#b9a2ff" } as Record<number, string>)[kb], short: `Hit ${kb} KB, not just “smaller”`,
-    answer: `Drop your photo and PixShift lowers the JPG quality (and, only if needed, the dimensions) until the file is under ${kb} KB. Download it right away. Everything runs in your browser.`,
+    answer: `Drop your photo and PixTools lowers the JPG quality (and, only if needed, the dimensions) until the file is under ${kb} KB. Download it right away. Everything runs in your browser.`,
     desc: `Compress an image to ${kb}KB online for free. Automatically finds the best quality that fits under ${kb} KB for forms, exams and uploads. No upload.`,
     more: kb <= 50
       ? `Government forms, exam portals and job sites often ask for photos or signatures under ${kb} KB. This tool searches for the highest JPG quality that still fits, so your picture stays as sharp as the limit allows.`
@@ -423,7 +423,7 @@ const SPECS: Spec[] = [
     icon: "🎨", color: "#ffd37a", short: "Swap a plain background colour",
     answer: "Add a photo with a plain background, set the tolerance so it is removed, pick a new colour and download. Great for passport and ID photos.",
     desc: "Change the background colour of a photo online for free. Plain backgrounds only. Private, no upload.",
-    note: "Colour-based, not AI. Works best when the old background is one even colour. For busy scenes the edge will be rough.",
+    note: "Works best when the old background is one even colour. For busy scenes the edge will be rough.",
     more: "Choose white or light blue for ID photos. Lower the softness if you see a halo.",
     faq: [["Can it change a busy background?", "Not cleanly. It needs a plain background to separate your subject."]],
     kw: ["background changer", "change photo background", "change background color", "passport photo background"], rel: ["background-remover", "passport-size-photo-maker", "transparent-background-maker", "photo-enhancer"],
@@ -844,14 +844,14 @@ function build(s: Spec): Tool {
     platform: s.platform,
     targetKb: s.targetKb,
     fixed: s.fixed,
-    title: `${s.name} – Free Online Tool | PixShift`,
+    title: `${s.name} – Free Online Tool | PixTools`,
     description: s.desc,
     h1: s.name,
     quickAnswer: s.answer,
     intro: [
       s.desc,
       s.more,
-      isImg ? "PixShift runs on your device, so it is fast and your pictures never leave it." : "Everything is calculated or processed in your browser, so nothing is uploaded.",
+      isImg ? "PixTools runs on your device, so it is fast and your pictures never leave it." : "Everything is calculated or processed in your browser, so nothing is uploaded.",
     ].map((t) => t.trim()).filter(Boolean),
     steps: s.steps ?? ENGINE_STEPS[s.engine],
     benefits: BENEFITS(s.engine),

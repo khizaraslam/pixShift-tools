@@ -1,4 +1,6 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 
 // Social share image (Open Graph) design, shared by the homepage and every tool page.
 // Shown when a link is shared on WhatsApp, LinkedIn, X, Facebook, Slack and so on.
@@ -12,8 +14,8 @@ const PULP = "#ff6a8b";
 const PITH = "#f5f7ec";
 
 async function loadFont() {
-  const res = await fetch(new URL("../assets/fonts/Inter-ExtraBold.otf", import.meta.url));
-  return res.arrayBuffer();
+  const file = await readFile(path.join(process.cwd(), "assets", "fonts", "Inter-ExtraBold.otf"));
+  return file.buffer.slice(file.byteOffset, file.byteOffset + file.byteLength) as ArrayBuffer;
 }
 
 interface OgProps {
@@ -64,7 +66,7 @@ export async function renderOg({ title, line, color = ZEST }: OgProps) {
               >
                 <div style={{ width: 28, height: 28, borderRadius: 999, background: ZEST }} />
               </div>
-              <div style={{ marginLeft: 16, fontSize: 40, color: PINE, letterSpacing: -1 }}>PixShift</div>
+              <div style={{ marginLeft: 16, fontSize: 40, color: PINE, letterSpacing: -1 }}>PixTools</div>
             </div>
 
             <div style={{ display: "flex", flexDirection: "column" }}>

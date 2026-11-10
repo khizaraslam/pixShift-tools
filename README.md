@@ -1,4 +1,4 @@
-# PixShift
+# PixTools
 
 Free, private, browser-based image tools built with **Next.js (App Router)**, **TypeScript** and **Tailwind CSS v4**.
 

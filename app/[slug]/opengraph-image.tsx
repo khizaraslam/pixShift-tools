@@ -1,7 +1,7 @@
 import { OG_SIZE, OG_TYPE, renderOg } from "@/lib/og";
 import { TOOLS, getTool } from "@/lib/tools";
 
-export const alt = "PixShift free image tool";
+export const alt = "PixTools free image studio";
 export const size = OG_SIZE;
 export const contentType = OG_TYPE;
 
@@ -15,7 +15,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   // First sentence of the description is short enough to read on a small preview.
   const line = tool ? tool.description.split(/(?<=\.)\s/)[0] : "Free image tools that run in your browser.";
   return renderOg({
-    title: tool ? tool.name : "PixShift",
+    title: tool ? tool.name : "PixTools",
     line,
     color: tool?.color,
   });

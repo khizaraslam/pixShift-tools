@@ -75,7 +75,7 @@ export default function Base64Tool({ tool }: { tool: Tool }) {
       const bin = atob(decoded.raw.replace(/-/g, "+").replace(/_/g, "/"));
       const bytes = new Uint8Array(bin.length);
       for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
-      downloadBlob(new Blob([bytes], { type: decoded.type }), `pixshift-image.${EXT[decoded.type] ?? "png"}`);
+      downloadBlob(new Blob([bytes], { type: decoded.type }), `pixtools-image.${EXT[decoded.type] ?? "png"}`);
     } catch {
       setError("That text is not valid Base64.");
     }

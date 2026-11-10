@@ -106,7 +106,7 @@ export default function CombineTool({ tool }: { tool: Tool }) {
       paint(c, geometry, scale, background);
       const out = fmt === "jpeg" ? flatten(c) : c;
       const blob = await canvasToBlob(out, MIME[fmt], fmt === "png" ? undefined : 0.92);
-      downloadBlob(blob, `pixshift-combined.${EXT[fmt]}`);
+      downloadBlob(blob, `pixtools-combined.${EXT[fmt]}`);
       setMessage(`${c.width}×${c.height} · ${formatBytes(blob.size)}${scale < 1 ? " · reduced to fit your browser's limit" : ""}`);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Something went wrong.");

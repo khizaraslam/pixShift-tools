@@ -141,7 +141,7 @@ export default function CollageTool({ tool }: { tool: Tool }) {
       paint(c, W, H, used, opts);
       const out = fmt === "jpeg" ? flatten(c, bg) : c;
       const blob = await canvasToBlob(out, MIME[fmt], fmt === "png" ? undefined : 0.92);
-      downloadBlob(blob, `pixshift-collage.${EXT[fmt]}`);
+      downloadBlob(blob, `pixtools-collage.${EXT[fmt]}`);
       setMessage(`${W}×${H} px · ${formatBytes(blob.size)}`);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Something went wrong.");

@@ -1,6 +1,6 @@
 import { OG_SIZE, OG_TYPE, renderOg } from "@/lib/og";
 
-export const alt = "PixShift: free image compressor, resizer and converter";
+export const alt = "PixTools: free image compressor, resizer and converter";
 export const size = OG_SIZE;
 export const contentType = OG_TYPE;
 

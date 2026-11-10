@@ -6,10 +6,10 @@ import { TOOLS } from "@/lib/tools";
 import { SITE, absoluteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: `All Free Image Tools Compress, Resize, Convert, Edit | PixShift`,
+  title: `All Free Image Tools Compress, Resize, Convert, Edit | PixTools`,
   description: `Browse free image tools: compressors, converters, resizers, social media sizes, background remover, watermark, crop, colour picker, calculators and more. Private, in your browser.`,
   alternates: { canonical: "/tools" },
-  openGraph: { type: "website", url: "/tools", siteName: SITE.name, title: "All free image tools | PixShift" },
+  openGraph: { type: "website", url: "/tools", siteName: SITE.name, title: "All free image tools | PixTools" },
 };
 
 export default function ToolsPage() {
@@ -17,7 +17,7 @@ export default function ToolsPage() {
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
-      name: "All PixShift image tools",
+      name: "All PixTools image",
       url: absoluteUrl("/tools"),
       isPartOf: { "@id": absoluteUrl("/#website") },
     },

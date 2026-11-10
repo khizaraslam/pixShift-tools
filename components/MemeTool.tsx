@@ -90,7 +90,7 @@ export default function MemeTool({ tool }: { tool: Tool }) {
       draw(c, img.bitmap, k, { top, bottom, size, color, caps });
       const out = fmt === "jpeg" ? flatten(c) : c;
       const blob = await canvasToBlob(out, MIME[fmt], fmt === "png" ? undefined : 0.92);
-      downloadBlob(blob, `pixshift-meme.${EXT[fmt]}`);
+      downloadBlob(blob, `pixtools-meme.${EXT[fmt]}`);
       setMessage(`${c.width}×${c.height} px · ${formatBytes(blob.size)}`);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Something went wrong.");

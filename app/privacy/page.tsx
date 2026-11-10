@@ -18,9 +18,7 @@ export default function PrivacyPage() {
           Images you select are processed locally by your browser. They are not uploaded to, or stored on, our servers.
         </p>
         <h2 className="pt-2 text-2xl font-bold">Analytics and cookies</h2>
-        <p>
-          This starter does not include analytics or advertising cookies. If you add analytics or ads to your deployment, update this section to describe them and add any consent notice your region requires.
-        </p>
+       
         <h2 className="pt-2 text-2xl font-bold">Contact</h2>
         <p>
           Email <a className="text-brand-600 underline" href={`mailto:${SITE.email}`}>{SITE.email}</a> with any privacy questions.

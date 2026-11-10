@@ -123,14 +123,14 @@ const HAND: BaseTool[] = [
     output: "same",
     accept: ANY_IMAGE,
     acceptLabel: "JPG, PNG, WebP, GIF, BMP, AVIF",
-    title: "Image Compressor Reduce Image Size Online Free | PixShift",
+    title: "Image Compressor Reduce Image Size Online Free | PixTools",
     description:
       "Compress JPG, PNG and WebP images online for free. Reduce file size while keeping quality. Runs in your browser, no upload, no signup.",
     h1: "Free Image Compressor",
     quickAnswer:
-      "To compress an image online, drop it into PixShift, choose a quality level (around 70–80% is a good balance), and download the smaller file. Compression happens inside your browser, so the image is never uploaded.",
+      "To compress an image online, drop it into PixTools, choose a quality level (around 70–80% is a good balance), and download the smaller file. Compression happens inside your browser, so the image is never uploaded.",
     intro: [
-      "Large photos slow down websites, fill up email attachments and eat storage. PixShift's image compressor reduces file size by re-encoding your picture with a smarter quality setting, and you can see the result before you download it.",
+      "Large photos slow down websites, fill up email attachments and eat storage. PixTools's image compressor reduces file size by re-encoding your picture with a smarter quality setting, and you can see the result before you download it.",
       "It supports JPG, PNG and WebP, handles many files at once and lets you download everything as a single ZIP. Because the work happens on your device, it is fast and private.",
     ],
     steps: [
@@ -176,12 +176,12 @@ const HAND: BaseTool[] = [
     output: "same",
     accept: ANY_IMAGE,
     acceptLabel: "JPG, PNG, WebP, GIF, BMP, AVIF",
-    title: "Image Resizer Resize Photos by Pixels or Percent | PixShift",
+    title: "Image Resizer Resize Photos by Pixels or Percent | PixTools",
     description:
       "Resize images to exact width and height or by percentage. Keep aspect ratio, batch resize and download instantly. Free and private.",
     h1: "Free Image Resizer",
     quickAnswer:
-      "To resize an image, upload it to PixShift, enter a new width or height (or a percentage), keep the aspect ratio lock on, and download the result. Everything runs locally in your browser.",
+      "To resize an image, upload it to PixTools, enter a new width or height (or a percentage), keep the aspect ratio lock on, and download the result. Everything runs locally in your browser.",
     intro: [
       "Need a photo at exactly 800 pixels wide, or half its current size? The image resizer changes dimensions precisely and can lock the aspect ratio so nothing looks stretched.",
       "Choose a custom size or a percentage, set the output quality, and resize a whole batch of pictures at once.",
@@ -229,12 +229,12 @@ const HAND: BaseTool[] = [
     output: "jpeg",
     accept: "image/jpeg",
     acceptLabel: "JPG / JPEG",
-    title: "JPG Compressor Compress JPEG Images Online | PixShift",
+    title: "JPG Compressor Compress JPEG Images Online | PixTools",
     description:
       "Compress JPG and JPEG photos online for free. Shrink file size with an adjustable quality slider. Private, fast, no signup.",
     h1: "Free JPG Compressor",
     quickAnswer:
-      "To compress a JPG, add it to PixShift, set quality to roughly 70–80%, and download the smaller JPEG. JPG quality can be reduced a lot before differences become obvious.",
+      "To compress a JPG, add it to PixTools, set quality to roughly 70–80%, and download the smaller JPEG. JPG quality can be reduced a lot before differences become obvious.",
     intro: [
       "JPG is the most common photo format, and it is also easy to shrink. The JPG compressor re-encodes your photo at a quality you choose, so you can find the point where the file is small and still looks good.",
       "Use it before uploading to a website, sending by email or filling a form that limits file size.",
@@ -276,12 +276,12 @@ const HAND: BaseTool[] = [
     output: "png",
     accept: "image/png",
     acceptLabel: "PNG",
-    title: "PNG Compressor Reduce PNG File Size Online | PixShift",
+    title: "PNG Compressor Reduce PNG File Size Online | PixTools",
     description:
       "Compress PNG images online while keeping transparency. Smaller PNG files through colour quantization. Free, private and instant.",
     h1: "Free PNG Compressor",
     quickAnswer:
-      "To compress a PNG, upload it to PixShift and lower the quality slider. The tool reduces the number of colours (quantization) to make the file smaller while keeping transparency.",
+      "To compress a PNG, upload it to PixTools and lower the quality slider. The tool reduces the number of colours (quantization) to make the file smaller while keeping transparency.",
     intro: [
       "PNG files are lossless and often large. The PNG compressor shrinks them by reducing the colour palette, which works especially well for logos, icons, screenshots and illustrations.",
       "Transparency is preserved, so your cut-outs and logos still sit cleanly on any background.",
@@ -323,12 +323,12 @@ const HAND: BaseTool[] = [
     output: "webp",
     accept: ANY_IMAGE,
     acceptLabel: "JPG, PNG, GIF, BMP, AVIF",
-    title: "WebP Converter Convert JPG & PNG to WebP Online | PixShift",
+    title: "WebP Converter Convert JPG & PNG to WebP Online | PixTools",
     description:
       "Convert JPG, PNG and other images to WebP online for free. Smaller files, faster websites. No upload and no signup.",
     h1: "Free WebP Converter",
     quickAnswer:
-      "To convert an image to WebP, drop your JPG or PNG into PixShift, pick a quality level, and download the .webp file. WebP files are usually smaller than JPG or PNG at similar quality.",
+      "To convert an image to WebP, drop your JPG or PNG into PixTools, pick a quality level, and download the .webp file. WebP files are usually smaller than JPG or PNG at similar quality.",
     intro: [
       "WebP is a modern image format designed for the web. It supports both photos and transparency, and typically produces smaller files than JPG or PNG, which helps pages load faster.",
       "Convert single images or whole batches in seconds, with an adjustable quality slider.",
@@ -370,12 +370,12 @@ const HAND: BaseTool[] = [
     output: "png",
     accept: "image/jpeg",
     acceptLabel: "JPG / JPEG",
-    title: "JPG to PNG Converter Convert JPEG to PNG Free | PixShift",
+    title: "JPG to PNG Converter Convert JPEG to PNG Free | PixTools",
     description:
       "Convert JPG to PNG online in one click. Lossless PNG output, batch conversion, no upload and no signup.",
     h1: "JPG to PNG Converter",
     quickAnswer:
-      "To convert JPG to PNG, add your JPG file to PixShift and download the PNG. The PNG is lossless from the point of conversion, but it cannot restore detail already lost in the JPG.",
+      "To convert JPG to PNG, add your JPG file to PixTools and download the PNG. The PNG is lossless from the point of conversion, but it cannot restore detail already lost in the JPG.",
     intro: [
       "Sometimes you need PNG: for editing without further quality loss, for graphics workflows, or because a platform requires it. This converter turns JPG and JPEG files into PNG instantly.",
       "Note that converting to PNG does not add transparency or recover detail, and the PNG will usually be larger than the original JPG.",
@@ -413,12 +413,12 @@ const HAND: BaseTool[] = [
     output: "jpeg",
     accept: "image/png",
     acceptLabel: "PNG",
-    title: "PNG to JPG Converter Convert PNG to JPEG Free | PixShift",
+    title: "PNG to JPG Converter Convert PNG to JPEG Free | PixTools",
     description:
       "Convert PNG to JPG online and cut file size. Choose quality, batch convert, transparent areas become white. Free and private.",
     h1: "PNG to JPG Converter",
     quickAnswer:
-      "To convert PNG to JPG, upload the PNG to PixShift, choose quality, and download the JPG. Transparent areas are filled with white because JPG does not support transparency.",
+      "To convert PNG to JPG, upload the PNG to PixTools, choose quality, and download the JPG. Transparent areas are filled with white because JPG does not support transparency.",
     intro: [
       "PNG files can be very large. Converting them to JPG usually makes them much smaller, which is ideal for photos, email and uploads with size limits.",
       "Because JPG has no transparency, any see-through areas are filled with a solid background colour.",
@@ -456,7 +456,7 @@ const HAND: BaseTool[] = [
     output: "same",
     accept: "",
     acceptLabel: "",
-    title: "Aspect Ratio Calculator Find Ratio & Resize Dimensions | PixShift",
+    title: "Aspect Ratio Calculator Find Ratio & Resize Dimensions | PixTools",
     description:
       "Calculate aspect ratio from width and height, or find the missing dimension when resizing. Includes common ratios like 16:9, 4:3 and 1:1.",
     h1: "Aspect Ratio Calculator",
@@ -545,10 +545,10 @@ export function relatedTools(tool: Tool, n = 4): Tool[] {
 export const SITE_FAQS: Faq[] = [
   {
     q: "Are my images uploaded to a server?",
-    a: "No. PixShift processes images locally in your browser using your device. Your files are not uploaded or stored.",
+    a: "No. PixTools processes images locally in your browser using your device. Your files are not uploaded or stored.",
   },
   {
-    q: "Is PixShift free?",
+    q: "Is PixTools free?",
     a: "Yes. All tools are free to use with no signup, watermark or daily limit.",
   },
   {

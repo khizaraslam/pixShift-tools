@@ -41,7 +41,7 @@ export default function PdfTool({ tool }: { tool: Tool }) {
       }
       const pdf = buildPdf(pages);
       const blob = new Blob([pdf.buffer as ArrayBuffer], { type: "application/pdf" });
-      downloadBlob(blob, "pixshift-images.pdf");
+      downloadBlob(blob, "pixtools-images.pdf");
       setMessage(`${pages.length} page${pages.length > 1 ? "s" : ""} · ${formatBytes(blob.size)}`);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Something went wrong.");

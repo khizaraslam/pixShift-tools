@@ -226,7 +226,7 @@ export default function Editor({ tool }: { tool: Tool }) {
     setMlPct(0);
     ensureCut(active)
       .catch(() => {
-        setError("AI model load nahi hua, Classic mode on kar diya.");
+        setError("The AI model failed to load. Classic mode has been enabled.");
         setClassic(true);
       })
       .finally(() => setMlBusy(false));
@@ -624,7 +624,7 @@ export default function Editor({ tool }: { tool: Tool }) {
                         {classic
                           ? "Classic mode (colour based)."
                           : mlBusy
-                            ? `AI model chal raha hai… ${Math.round(mlPct * 100)}% (pehli baar model download hota hai)`
+                            ? `AI model is loading… ${Math.round(mlPct * 100)}% (The model is downloaded the first time you use it.)`
                             : "AI cut-out ready."}
                       </p>
                       <Btn kind={classic ? "zest" : "line"} onClick={() => setClassic(!classic)}>
