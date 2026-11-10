@@ -5,7 +5,7 @@ import ToolRunner from "@/components/ToolRunner";
 import FaqList from "@/components/FaqList";
 import JsonLd from "@/components/JsonLd";
 import ToolCard from "@/components/ToolCard";
-import { GROUP_LABEL, SITE_FAQS, TOOLS, getTool, relatedTools } from "@/lib/tools";
+import { SITE_FAQS, TOOLS, getTool, relatedTools } from "@/lib/tools";
 import { SITE, absoluteUrl } from "@/lib/site";
 
 export const dynamicParams = false;
@@ -60,8 +60,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: SITE.url },
         { "@type": "ListItem", position: 2, name: "All tools", item: absoluteUrl("/tools") },
-        { "@type": "ListItem", position: 3, name: GROUP_LABEL[tool.group].label, item: absoluteUrl(`/tools#${tool.group}`) },
-        { "@type": "ListItem", position: 4, name: tool.name, item: url },
+        { "@type": "ListItem", position: 3, name: tool.name, item: url },
       ],
     },
     {
@@ -73,12 +72,6 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
         acceptedAnswer: { "@type": "Answer", text: f.a },
       })),
     },
-    {
-      "@context": "https://schema.org",
-      "@type": "HowTo",
-      name: `How to use the ${tool.name}`,
-      step: tool.steps.map((s, i) => ({ "@type": "HowToStep", position: i + 1, name: `Step ${i + 1}`, text: s })),
-    },
   ];
 
   return (
@@ -89,7 +82,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <nav aria-label="Breadcrumb" className="text-sm text-slate-500">
             <Link href="/" className="hover:text-brand-700">Home</Link>
             <span className="mx-2" aria-hidden>/</span>
-            <Link href={`/tools#${tool.group}`} className="hover:text-brand-700">{GROUP_LABEL[tool.group].label}</Link>
+            <Link href="/tools" className="hover:text-brand-700">All tools</Link>
             <span className="mx-2" aria-hidden>/</span>
             <span aria-current="page" className="text-slate-700">{tool.name}</span>
           </nav>

@@ -38,7 +38,6 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    site: SITE.twitter,
     title: `${SITE.name} Free Image Tools`,
     description: SITE.description,
   },
@@ -59,9 +58,6 @@ const globalSchema = [
     name: SITE.name,
     url: SITE.url,
     logo: logoUrl(),
-    email: SITE.email,
-    // Add your real profiles here (LinkedIn, X, GitHub, YouTube) to strengthen entity signals.
-    sameAs: [],
   },
   {
     "@context": "https://schema.org",

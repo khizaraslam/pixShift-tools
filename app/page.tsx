@@ -9,7 +9,7 @@ import { SITE_FAQS, TOOLS } from "@/lib/tools";
 import { SITE, absoluteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "PixTools",
+  title: "Free Image Compressor, Resizer and Converter | PixTools",
   description:
     "Free online image tools: compress to 50KB or 100KB, resize, convert JPG, PNG, WebP and AVIF, crop, remove backgrounds, add watermarks, social media sizes, PDF, colour picker and calculators. Private, in your browser.",
   alternates: { canonical: "/" },
@@ -42,7 +42,7 @@ export default function HomePage() {
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      name: "PixTools image Tools",
+      name: "PixTools image tools",
       itemListElement: TOOLS.map((t, i) => ({
         "@type": "ListItem",
         position: i + 1,

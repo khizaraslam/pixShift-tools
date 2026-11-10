@@ -17,7 +17,7 @@ export default function ToolsPage() {
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
-      name: "All PixTools image",
+      name: "All PixTools image tools",
       url: absoluteUrl("/tools"),
       isPartOf: { "@id": absoluteUrl("/#website") },
     },

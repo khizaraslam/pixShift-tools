@@ -21,7 +21,7 @@ export default function ToolIndex() {
         What do you need to do with your image?
       </h2>
       <p className="mt-3 max-w-xl text-base text-pine/80 sm:text-lg">
-         free tools. These ten are the ones people reach for most. Pick a print to open it.
+        {TOOLS.length} free tools. These ten are the ones people reach for most. Pick a print to open it.
       </p>
 
       <div className="-mx-3 mt-6 space-y-2 overflow-hidden px-3 pb-4">

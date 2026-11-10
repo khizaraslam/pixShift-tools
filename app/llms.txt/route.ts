@@ -16,7 +16,7 @@ export function GET() {
     "- Processing is client-side (browser Canvas API); files are not uploaded to any server.",
     "- Input formats: JPG, PNG, WebP, GIF, BMP, AVIF and SVG (some depend on the browser). Output formats: JPG, PNG, WebP and AVIF (AVIF encoding only in Chromium browsers).",
     "- Free to use, no account required.",
-    "- Background remover, upscaler and object remover use classic image processing, not AI: they work best on plain backgrounds, small objects and modest enlargements.",
+    "- Background remover and background changer default to an on-device AI cut-out (the model downloads once, then runs in the browser). Classic mode is colour-based and suits plain backgrounds. The upscaler and object remover use classic image processing, not AI.",
     "- Social media sizes are current recommendations and platforms may change them.",
     "",
   ];

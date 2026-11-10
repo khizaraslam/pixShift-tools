@@ -1,11 +1,9 @@
 export const SITE = {
   name: "PixTools",
-  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://pixtools.example").replace(/\/$/, ""),
+  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, ""),
   tagline: "Free online image tools that run in your browser",
   description:
     "PixTools offers free image compressor, resizer, converter and social media resize tools. Files are processed locally in your browser, so your photos are never uploaded.",
-  twitter: "@pixtools",
-  email: "hello@pixtools.example",
   locale: "en_US",
   launched: "2026-10-14",
   /**

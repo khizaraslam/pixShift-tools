@@ -17,7 +17,7 @@ Free, private, browser-based image tools built with **Next.js (App Router)**, **
 
 Everything runs in the browser: Canvas API, `upng-js` (PNG quantisation), `fflate` (ZIP). Nothing is uploaded.
 
-**Honest limits** (also written on the tool pages): the background remover/changer is colour based (plain backgrounds), the upscaler enlarges by smooth scaling plus sharpening, object removal fills from surrounding pixels, and AVIF can only be created in Chromium browsers. None of these use AI.
+**Honest limits** (also written on the tool pages): the background remover and changer default to an on-device AI cut-out, with a classic colour mode for plain backgrounds. The upscaler enlarges by smooth scaling plus sharpening, and object removal fills from surrounding pixels. AVIF can only be created in Chromium browsers.
 
 ## How the code is organised
 

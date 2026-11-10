@@ -18,10 +18,8 @@ export default function PrivacyPage() {
           Images you select are processed locally by your browser. They are not uploaded to, or stored on, our servers.
         </p>
         <h2 className="pt-2 text-2xl font-bold">Analytics and cookies</h2>
-       
-        <h2 className="pt-2 text-2xl font-bold">Contact</h2>
         <p>
-          Email <a className="text-brand-600 underline" href={`mailto:${SITE.email}`}>{SITE.email}</a> with any privacy questions.
+          PixTools does not set analytics cookies and does not upload your images. The pages themselves can be cached by your browser.
         </p>
       </div>
     </div>

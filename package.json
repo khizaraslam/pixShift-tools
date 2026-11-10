@@ -22,5 +22,11 @@
     "@types/react-dom": "^19.0.0",
     "tailwindcss": "^4.0.0",
     "typescript": "^5.0.0"
+  },
+  "allowScripts": {
+    "protobufjs@7.6.6": true
+  },
+  "overrides": {
+    "postcss": "8.5.32"
   }
 }

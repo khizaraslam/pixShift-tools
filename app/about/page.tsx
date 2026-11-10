@@ -35,10 +35,6 @@ export default function AboutPage() {
           <li>Your files are yours. Privacy should be the default, not a premium feature.</li>
           <li>Clear answers beat jargon. Every tool page explains what it does and how to use it.</li>
         </ul>
-        <h2 className="pt-4 text-2xl font-bold">Contact</h2>
-        <p>
-          Questions or feedback? Email <a className="text-brand-600 underline" href={`mailto:${SITE.email}`}>{SITE.email}</a>.
-        </p>
       </div>
     </div>
   );
